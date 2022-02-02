@@ -75,3 +75,15 @@ main {
     width: 100px;
     height: 100px;
 }
+
+@media screen and (min-width: 700px) {
+    main {
+        padding-inline: 20%;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    main {
+        padding-inline: 20%;
+    }
+}

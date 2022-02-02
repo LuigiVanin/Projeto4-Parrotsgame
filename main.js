@@ -1,5 +1,6 @@
 let cards = [];
 let selected = [];
+let movesCount = 0;
 const gifs = [
     "assets/bobrossparrot.gif", // 0
     "assets/explodyparrot.gif", // 1
@@ -35,6 +36,7 @@ function emptyArray(array) {
 }
 function restartGame() {
     const main = document.querySelector("main");
+    movesCount = 0;
     main.innerHTML = ``;
     cards = [];
     selected = [];
@@ -47,11 +49,13 @@ function endCheck(n) {
         return;
     }
     cards = [];
+    alert(`VOCÊ GANHOU EM ${movesCount} JOGADAS!`);
     let option;
-    while (option !== "y" && option !== "n") {
-        option = prompt("You Won, Wanna restart the game?(y/n)");
+    // trocar depois para Wanna restart the game?(y/n)
+    while (option !== "sim" && option !== "nao") {
+        option = prompt("Gostaria de jogar novamente?(sim/nao)");
     }
-    if (option === "y") {
+    if (option === "sim") {
         restartGame();
         return;
     }
@@ -70,6 +74,7 @@ function setCardAction(item) {
             if (!item[i].classList.contains("selected")) {
                 item[i].classList.add("selected");
                 selected.push(i);
+                movesCount++;
                 if (selected.length == 2) {
                     if (cards[selected[0]] !== cards[selected[1]]) {
                         await sleep(1000);
