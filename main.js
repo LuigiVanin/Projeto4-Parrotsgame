@@ -1,14 +1,17 @@
 let cards = [];
 let selected = [];
 let movesCount = 0;
+let interval = null;
+let timer = 0;
+
 const gifs = [
-    "assets/bobrossparrot.gif", // 0
-    "assets/explodyparrot.gif", // 1
-    "assets/fiestaparrot.gif", // 2
-    "assets/metalparrot.gif", // 3
-    "assets/revertitparrot.gif", // 4
-    "assets/tripletsparrot.gif", // 5
-    "assets/unicornparrot.gif", // 6
+    "assets/bobrossparrot.gif",
+    "assets/explodyparrot.gif",
+    "assets/fiestaparrot.gif",
+    "assets/metalparrot.gif",
+    "assets/revertitparrot.gif",
+    "assets/tripletsparrot.gif",
+    "assets/unicornparrot.gif",
 ];
 
 function sleep(ms) {
@@ -34,12 +37,25 @@ function emptyArray(array) {
         array.pop();
     }
 }
+
+function timerUpdate() {
+    document.querySelector(".timer").innerHTML = timer;
+}
+
+function addTimer() {
+    timer++;
+    timerUpdate();
+}
+
 function restartGame() {
     const main = document.querySelector("main");
     movesCount = 0;
     main.innerHTML = ``;
     cards = [];
     selected = [];
+    timer = 0;
+    timerUpdate();
+    clearInterval(interval);
     startGame();
 }
 
@@ -51,7 +67,6 @@ function endCheck(n) {
     cards = [];
     alert(`VOCÊ GANHOU EM ${movesCount} JOGADAS!`);
     let option;
-    // trocar depois para Wanna restart the game?(y/n)
     while (option !== "sim" && option !== "nao") {
         option = prompt("Gostaria de jogar novamente?(sim/nao)");
     }
@@ -59,13 +74,9 @@ function endCheck(n) {
         restartGame();
         return;
     }
-
-    // window.location.replace("https://github.com/LuigiVanin/");
-    // return;
 }
 
 function setCardAction(item) {
-    // change to forEach
     for (let i = 0; i < cards.length; i++) {
         item[i].addEventListener("click", async () => {
             if (selected.length == 2) {
@@ -108,17 +119,18 @@ function startGame() {
 
     for (let i = 0; i < n; i++) {
         main.innerHTML += `
-        <div class="card">
-            <div class="face front-face">
+        <div class="card" data-identifier="card" data-identifier="front-face">
+            <div class="face front-face" >
                 <img src="./assets/front.png">
             </div> 
-            <div class="face back-face">
-            <img src="${gifs[cards[i]]}">
+            <div class="face back-face" data-identifier="back-face">
+                <img src="${gifs[cards[i]]}">
             </div>
         </div>`;
     }
     const cardsDOM = document.querySelectorAll(".card");
     setCardAction(cardsDOM);
+    interval = setInterval(addTimer, 1000);
 }
 
 startGame();

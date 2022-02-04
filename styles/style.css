@@ -7,8 +7,17 @@ body {
     background-color: #eef9bf;
 }
 
+.timer {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    color: red;
+    font-size: 36px;
+    font-family: Roboto, sans-serif;
+}
+
 header {
-    padding-block: 40px;
+    padding-block: 50px;
 }
 
 header h1 {
@@ -31,6 +40,7 @@ main {
     flex-wrap: wrap;
     gap: 30px;
     margin-bottom: 20px;
+    padding-inline: 20%;
 }
 
 .card {
@@ -76,14 +86,13 @@ main {
     height: 100px;
 }
 
-@media screen and (min-width: 700px) {
-    main {
-        padding-inline: 20%;
+@media screen and (max-width: 600px) {
+    header h1 {
+        font-size: 48px;
     }
-}
 
-@media screen and (max-width: 580px) {
-    main {
-        padding-inline: 20%;
+    .timer {
+        top: 10px;
+        font-size: 28px;
     }
 }
